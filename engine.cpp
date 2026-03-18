@@ -59,28 +59,33 @@ private:
   // TODO definir l'énergie mechanique
   double Emec(double theta, double thetadot, double t_)
   {
-
-      return 0.;
+      double E_cin=0.5*m*(pow(r,2)*pow(Omega,2)+pow(L,2)*pow(thetadot,2));
+      double E_pot=-m*g*L*cos(theta)+r*cos(Omega*t);
+      return E_pot+E_cin;
   }
 
   // TODO definir la puissance des forces non conservatives
   double Pnonc(double theta, double thetadot, double t_)
-  {
-
-      return 0.;
+  { 
+      double vitesse_carre=0.5*m*(pow(r,2)*pow(Omega,2)+pow(L,2)*pow(thetadot,2));
+      return kappa*vitesse_carre;
   }
 
   // TODO écrire la fonction pour l'acceleration (theta_doubledot)
   double compute_acc(double theta, double thetadot, double t_)
   {
-      double acc = 0.;
-
+      double premier_terme= -g/L*sin(theta);
+      double deuxieme_terme=-kappa/m*(thetadot+r*Omega/L*cos(Omega*t - theta));
+      double troisieme_terme= r*pow(Omega,2)/L*sin(Omega*t-theta);
+      double acc = premier_terme+deuxieme_terme+troisieme_terme;
       return acc;
   }
   // TODO implementer le schéma Velocity Verlet pour une accélération dependante du theta, thetadot et t.
   void step()
   {
-
+    double theta_plus_1=theta+thetadot*dt+0.5*compute_acc(theta,thetadot,t)*pow(dt,2);
+    double thetadot_plus_one=thetadot+compute_acc(theta,thetadot,t)*dt;
+    thetadot=thetadot+0.5*(compute_acc(theta,thetadot_plus_one,t)+compute_acc(theta_plus_1,thetadot_plus_one,t+dt))*dt;
     t += dt;
   }
 

@@ -3,7 +3,7 @@ import subprocess
 import os
 
 # Parameters
-repertoire = ''
+repertoire = '/home/boriskiriakov/Downloads/Exercise2_student/rotatingpendulum/problème/'
 executable = 'engine.exe'
 input_filename = 'configuration.in.example' # Strictly no longer needed, but we keep it for now to avoid having to change the code in engine.cpp
 
@@ -29,7 +29,7 @@ input_parameters = {
 
 paramstr = 'nsteps' # The parameter to scan, must be one of the keys in input_parameters
 
-variable_array = 2**np.arange(3, 15)  # Example values for the parameter scan
+variable_array = 2**np.arange(3, 6)  # Example values for the parameter scan
 
 
 outstr = f"pendulum_kappa_{input_parameters['kappa']:.2g}_r_{input_parameters['r']:.2g}_Omega_{input_parameters['Omega']:.2g}"
