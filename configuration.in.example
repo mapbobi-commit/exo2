@@ -1,10 +1,10 @@
-tf          = 2 // t final (overwritten if N >0)
-r           = 0.0
-kappa       = 0.00
+tf          = 100 // t final (overwritten if N >0)
+r           = 0.05
+kappa       = 0.02
 m           = 0.1
 L           = 0.2
 g           = 9.81
-Omega       = 2.
+Omega       = 7.00357
 theta0      = 1e-8
 thetadot0   = 0.
 output      = output.out

@@ -11,7 +11,7 @@ import math
 # ============================================================
 
 folder = r"/home/boriskiriakov/Downloads/Exercise2_student/rotatingpendulum/problème/Scan_nsteps_pendulum_kappa_0_r_0_Omega_2"
-
+folder= r'/home/boriskiriakov/Downloads/Exercise2_student/rotatingpendulum/problème/Scan_nsteps_pendulum_kappa_0.01_r_0.05_Omega_7'
 plot_layout = {
     "theta_time": True,
     "phase_space": False,

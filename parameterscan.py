@@ -9,15 +9,15 @@ input_filename = 'configuration.in.example' # Strictly no longer needed, but we 
 
 
 input_parameters = {
-    'tf': 2, # t final (overwritten if N >0)
+    'tf': 50, # t final (overwritten if N >0)
     'N': 0, # number of excitation periods
     'nsteps': 10000, # number of time steps per period (if N>0), number of timesteps total if N=0
-    'r': 0.0,
-    'kappa': 0.0,
+    'r': 0.05,
+    'kappa': 0.01,
     'm': 0.1,
     'L': 0.2,
     'g': 9.81,
-    'Omega': 2,
+    'Omega': 7.00357,
     'theta0': 1e-8,
     'thetadot0': 0.,
     'sampling': 1
@@ -29,7 +29,7 @@ input_parameters = {
 
 paramstr = 'nsteps' # The parameter to scan, must be one of the keys in input_parameters
 
-variable_array = 2**np.arange(3, 6)  # Example values for the parameter scan
+variable_array = 2**np.arange(8, 12)  # Example values for the parameter scan
 
 
 outstr = f"pendulum_kappa_{input_parameters['kappa']:.2g}_r_{input_parameters['r']:.2g}_Omega_{input_parameters['Omega']:.2g}"

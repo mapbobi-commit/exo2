@@ -60,7 +60,7 @@ private:
   double Emec(double theta, double thetadot, double t_)
   {
       double E_cin=0.5*m*(pow(r,2)*pow(Omega,2)+pow(L,2)*pow(thetadot,2));
-      double E_pot=-m*g*L*cos(theta)+r*cos(Omega*t);
+      double E_pot=-m*g*L*cos(theta)+r*cos(Omega*t_);
       return E_pot+E_cin;
   }
 
@@ -86,6 +86,7 @@ private:
     double theta_plus_1=theta+thetadot*dt+0.5*compute_acc(theta,thetadot,t)*pow(dt,2);
     double thetadot_plus_one=thetadot+compute_acc(theta,thetadot,t)*dt;
     thetadot=thetadot+0.5*(compute_acc(theta,thetadot_plus_one,t)+compute_acc(theta_plus_1,thetadot_plus_one,t+dt))*dt;
+    theta=theta_plus_1;
     t += dt;
   }
 
