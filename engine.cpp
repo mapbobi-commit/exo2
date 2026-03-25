@@ -60,14 +60,14 @@ private:
   double Emec(double theta, double thetadot, double t_)
   {
       double E_cin=0.5*m*(pow(r,2)*pow(Omega,2)+pow(L,2)*pow(thetadot,2));
-      double E_pot=-m*g*L*cos(theta)+r*cos(Omega*t_);
+      double E_pot=-m*g*(L*cos(theta)-r*cos(Omega*t_));
       return E_pot+E_cin;
   }
 
   // TODO definir la puissance des forces non conservatives
   double Pnonc(double theta, double thetadot, double t_)
   { 
-      double vitesse_carre=0.5*m*(pow(r,2)*pow(Omega,2)+pow(L,2)*pow(thetadot,2));
+      double vitesse_carre=(pow(r,2)*pow(Omega,2)+pow(L,2)*pow(thetadot,2));
       return kappa*vitesse_carre;
   }
 

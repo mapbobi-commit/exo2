@@ -10,8 +10,7 @@ import math
 # USER SETTINGS
 # ============================================================
 
-folder = r"/home/boriskiriakov/Downloads/Exercise2_student/rotatingpendulum/problème/Scan_nsteps_pendulum_kappa_0_r_0_Omega_2"
-folder= r'/home/boriskiriakov/Downloads/Exercise2_student/rotatingpendulum/problème/Scan_nsteps_pendulum_kappa_0.01_r_0.05_Omega_7'
+folder = r"/home/boriskiriakov/Downloads/Exercise2_student/rotatingpendulum/problème/Scan_nsteps_pendulum_kappa_0_r_0_Omega_7"
 plot_layout = {
     "theta_time": True,
     "phase_space": False,
@@ -131,22 +130,28 @@ cmap = plt.get_cmap("tab10")
 fig, axes = get_axes("theta_time", "Angle vs time")
 
 for i,data in enumerate(datasets):
-
+    
     t = data[:,0]
     theta = (data[:,1] + np.pi)%(2*np.pi) - np.pi
 
     color = cmap(i % 10)
-
+    
+    len_t=len(t)
     axes[i].plot(t, theta, color=color,
                  label=f"{param_name}={param_values[i]}")
-
+    
     axes[i].set_xlabel("t")
     axes[i].set_ylabel("theta")
     axes[i].grid()
 
     if not plot_layout["theta_time"]:
         axes[i].set_title(f"{param_name} = {param_values[i]}")
+t = data[:,0]
+len_t=len(t)
 
+theta_anal=10**(-8)*np.cos(np.sqrt(9.81/0.2)*t)
+axes[1].plot(t,theta_anal,color='cyan',
+                 label='Analytical solution')
 if plot_layout["theta_time"]:
     axes[0].legend()
 
@@ -204,7 +209,7 @@ for i,data in enumerate(datasets):
     axes[i].set_xlabel("t")
     axes[i].set_ylabel("Energy")
     axes[i].grid()
-
+    axes[i].set_ylim(-0.1980, -0.1900)
     if not plot_layout["energy"]:
         axes[i].set_title(f"{param_name} = {param_values[i]}")
 
@@ -309,6 +314,28 @@ if plot_layout["energy_balance"]:
     axes[0].legend()
 
 fig.savefig(os.path.join(fig_dir,"energy_balance_all.png"), dpi=300)
+
+
+
+# ============================================================
+# Plot 6 : period analytical vs simulation
+# ============================================================
+
+fig, axes = get_axes("theta_time", "Angle vs time")
+
+for i,data in enumerate(datasets):
+
+    t = data[:,0]
+    theta = (data[:,1] + np.pi)%(2*np.pi) - np.pi
+
+    zc = np.where(np.diff(np.sign(theta)) > 0)[0]
+
+    period_samples = np.mean(np.diff(zc))
+    period_time = period_samples * (t[1] - t[0])
+    print(f"Period: {period_samples:.1f} samples ({period_time:.4f} s)")
+
+print(f"Analytical Period:({2*np.pi/np.sqrt(9.81/0.2):.4f} s)")
+
 
 
 plt.show()
